@@ -5,8 +5,7 @@ Applicazione GUI per il matching di feature tra coppie di immagini e stima di po
 ## Struttura del repository
 
 ```
-Progetto_PG/
-├── __pycache__/
+Camera_Pose_Estimation/
 ├── lightglue/                # Codice sorgente LightGlue
 ├── matching_and_pose/        # Script per stima di posa
 │   ├── cloud_get_points.py
@@ -16,19 +15,11 @@ Progetto_PG/
 │   ├── proj.py
 │   ├── set_unity_camera.py
 │   └── ...
-├── models/                   # Modelli pre-addestrati (se presenti)
-├── output/                   # Cartella di output (file di matching e parametri)
-├── res/                      # Risorse varie
-├── src/                      # Codice di supporto (utilities generiche)
-├── third_party/              # Codici di terze parti inclusi
-├── utils/                    # Utility e helper
-├── weights/                  # Pesi dei modelli LightGlue
 ├── omniglue_matcher.py       # Wrapper OmniGlue
 ├── liftfeat_matcher.py       # Wrapper LiftFeat
 ├── lightglue_matcher.py      # Wrapper LightGlue
 ├── main_gui.py               # Applicazione Tkinter principale
 ├── matching_and_pose.py      # Script top-level di matching e posa
-├── pyproject.toml
 ├── requirements.txt
 └── README.md                 # Questo file
 ```
@@ -108,3 +99,4 @@ Al termine, troverai in `output/`:
 ---
 
 © 2025 Progetto\_PG Team
+
