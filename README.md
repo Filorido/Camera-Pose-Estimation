@@ -1,13 +1,13 @@
-# Progetto\_PG
+# Progetto_PG
 
-Applicazione GUI per il matching di feature tra coppie di immagini e stima di posa 2D→3D.
+GUI application for feature matching between image pairs and 2D→3D pose estimation.
 
-## Struttura del repository
+## Repository Structure
 
 ```
 Camera_Pose_Estimation/
-├── lightglue/                # Codice sorgente LightGlue
-├── matching_and_pose/        # Script per stima di posa
+├── lightglue/                # LightGlue source code
+├── matching_and_pose/        # Pose estimation scripts
 │   ├── cloud_get_points.py
 │   ├── getInternals.py
 │   ├── exterior_fiore.py
@@ -15,16 +15,16 @@ Camera_Pose_Estimation/
 │   ├── proj.py
 │   ├── set_unity_camera.py
 │   └── ...
-├── omniglue_matcher.py       # Wrapper OmniGlue
-├── liftfeat_matcher.py       # Wrapper LiftFeat
-├── lightglue_matcher.py      # Wrapper LightGlue
-├── main_gui.py               # Applicazione Tkinter principale
-├── matching_and_pose.py      # Script top-level di matching e posa
+├── omniglue_matcher.py       # OmniGlue wrapper
+├── liftfeat_matcher.py       # LiftFeat wrapper
+├── lightglue_matcher.py      # LightGlue wrapper
+├── main_gui.py               # Main Tkinter application
+├── matching_and_pose.py      # Top-level matching and pose script
 ├── requirements.txt
-└── README.md                 # Questo file
+└── README.md                 # This file
 ```
 
-## Requisiti
+## Requirements
 
 * Python 3.8+
 * PyTorch
@@ -36,67 +36,68 @@ Camera_Pose_Estimation/
 * Matplotlib
 * LightGlue ([https://github.com/cvg/LightGlue](https://github.com/cvg/LightGlue))
 
-Installa le dipendenze con:
+Install dependencies with:
 
 ```sh
 pip install -r requirements.txt
 ```
 
-## Descrizione dei componenti
+## Component Description
 
-### main\_gui.py
+### main_gui.py
 
-Applicazione GUI Tkinter che permette di:
+Tkinter GUI application that allows you to:
 
-* Selezionare due immagini (reference e target)
-* Scegliere l'algoritmo di matching tra `OmniGlue`, `LiftFeat` e `LightGlue`
-* Eseguire il matching e visualizzare i risultati in tempo reale
-* Salvare i keypoint e le confidence in `output/matches_output.txt`
-* Lanciare, su conferma, lo script di stima di posa
+* Select two images (reference and target)
+* Choose the matching algorithm among `OmniGlue`, `LiftFeat`, and `LightGlue`
+* Run feature matching and visualize results in real time
+* Save keypoints and confidence values to `output/matches_output.txt`
+* Optionally launch the pose estimation script upon confirmation
 
-### omniglue\_matcher.py / liftfeat\_matcher.py / lightglue\_matcher.py
+### omniglue_matcher.py / liftfeat_matcher.py / lightglue_matcher.py
 
-Wrapper per ciascun algoritmo di matching:
+Wrappers for each matching algorithm:
 
-* Normalizzazione delle immagini
-* Estrazione delle feature e corrispondenze
-* Ritorno di array di keypoint, confidence e immagine di visualizzazione
+* Image normalization
+* Feature extraction and correspondence detection
+* Return of keypoints, confidence arrays, and visualization image
 
-### matching\_and\_pose/matching\_and\_pose.py
+### matching_and_pose/matching_and_pose.py
 
-Script top-level per la stima di posa 2D→3D:
+Top-level script for 2D→3D pose estimation:
 
-1. Carica i file PLY della nuvola di punti e il file di visibilità
-2. Estrae punti 3D e le loro proiezioni 2D nell'immagine di riferimento
-3. Legge il file `output/matches_output.txt` per ottenere i keypoint matchati
-4. Allinea i punti 2D ai 3D tramite KD-Tree e soglia di distanza
-5. Calcola la matrice di trasformazione (`exterior_fiore`) e i parametri per Unity
-6. Salva i parametri di intrinseci/estrinseci in JSON (`output/camera_parameters.json`)
+1. Loads PLY point cloud files and visibility files
+2. Extracts 3D points and their 2D projections in the reference image
+3. Reads `output/matches_output.txt` to obtain matched keypoints
+4. Aligns 2D and 3D points via KD-Tree and distance thresholding
+5. Computes the transformation matrix (`exterior_fiore`) and Unity parameters
+6. Saves intrinsic/extrinsic parameters to JSON (`output/camera_parameters.json`)
 
-Le funzioni supportate si trovano in:
+Supporting functions can be found in:
 
-* `cloud_get_points.py`: parsing PLY + visibility
-* `getInternals.py`: calibrazione camera
-* `exterior_fiore.py`: stima della posa
-* `proj.py`: proiezioni e utilità
-* `set_unity_camera.py`: conversione dei parametri per Unity
+* `cloud_get_points.py`: PLY + visibility parsing
+* `getInternals.py`: camera calibration
+* `exterior_fiore.py`: pose estimation
+* `proj.py`: projections and utilities
+* `set_unity_camera.py`: parameter conversion for Unity
 
-## Esecuzione
+## Execution
 
-1. **Avvia l'interfaccia grafica:**
+1. **Launch the graphical interface:**
 
    ```sh
    python main_gui.py
    ```
-2. **Seleziona le due immagini**, scegli l'algoritmo e clicca `Esegui Matching`.
-3. **Conferma** se i risultati sono soddisfacenti per proseguire con la stima di posa.
 
-Al termine, troverai in `output/`:
+2. **Select the two images**, choose the matching algorithm, and click `Run Matching`.
 
-* `matches_output.txt`: keypoints e confidence del matching
-* `camera_parameters.json`: parametri di camera per Unity
+3. **Confirm** if the results are satisfactory to proceed with pose estimation.
+
+After completion, the `output/` folder will contain:
+
+* `matches_output.txt`: matched keypoints and confidence values
+* `camera_parameters.json`: camera parameters for Unity
 
 ---
 
-© 2025 Progetto\_PG Team
-
+© 2025 Progetto_PG Team
