@@ -1,4 +1,4 @@
-# Progetto_PG
+# Camera Pose Estimation 
 
 GUI application for feature matching between image pairs and 2D→3D pose estimation.
 
@@ -101,3 +101,4 @@ After completion, the `output/` folder will contain:
 ---
 
 © 2025 Progetto_PG Team
+
